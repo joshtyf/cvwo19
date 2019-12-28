@@ -18,6 +18,7 @@ class Body extends React.Component {
     let body = JSON.stringify({
       task: { description: description, category: category }
     });
+    console.log(body);
     fetch("/tasks", {
       method: "POST",
       headers: {

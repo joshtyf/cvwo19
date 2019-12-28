@@ -4,7 +4,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    task = Task.create(task_params)
+    category = Category.find_or_create_by(name: task_params["category"])
+    cat_id = category["id"]
+    task = Task.create({"description"=>task_params["description"], "category_id"=>cat_id})
     render json: task
   end
 
