@@ -12,7 +12,13 @@ class Task extends React.Component {
       let description = this.description.value;
       let category = this.category.value;
       let id = this.props.task.id;
-      let task = { id: id, description: description, category: category };
+      let cat_id = this.props.task.category_id;
+      let task = {
+        id: id,
+        description: description,
+        category: category,
+        cat_id: cat_id
+      };
       this.props.handleUpdateTask(task);
     }
     this.setState({
@@ -34,10 +40,10 @@ class Task extends React.Component {
       <input
         type="string"
         ref={input => (this.category = input)}
-        defaultValue={this.props.task.category}
+        defaultValue={this.props.task.category.name}
       />
     ) : (
-      <p>{this.props.task.category}</p>
+      <p>{this.props.task.category.name}</p>
     );
 
     return (

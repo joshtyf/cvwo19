@@ -3,22 +3,21 @@ import PropTypes from "prop-types";
 import AllTasks from "./AllTasks";
 import NewTask from "./NewTask";
 class Body extends React.Component {
-  constructor() {
-    super();
-    this.state = { tasks: [] };
+  constructor(props) {
+    super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addNewTask = this.addNewTask.bind(this);
     this.handleTaskDelete = this.handleTaskDelete.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
+    this.state = { tasks: this.props.tasks };
   }
 
   handleFormSubmit(description, category) {
     let body = JSON.stringify({
       task: { description: description, category: category }
     });
-    console.log(body);
     fetch("/tasks", {
       method: "POST",
       headers: {
@@ -53,12 +52,14 @@ class Body extends React.Component {
 
   deleteTask(id) {
     var newTasks = this.state.tasks.filter(task => task.id !== id);
+    console.log(newTasks);
     this.setState({
       tasks: newTasks
     });
   }
 
   handleUpdateTask(task) {
+    console.log(task);
     fetch(`tasks/${task.id}`, {
       method: "PUT",
       body: JSON.stringify({ task: task }),
@@ -71,22 +72,20 @@ class Body extends React.Component {
   }
 
   updateTask(task) {
-    let newTasks = this.state.tasks.filter(task => task.id !== task.id);
+    console.log(task);
+    const filter_id = task.id;
+    let newTasks = this.state.tasks.filter(task => task.id !== filter_id);
     newTasks.push(task);
     this.setState({
       tasks: newTasks
     });
   }
 
-  componentDidMount() {
-    fetch("/tasks")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.setState({ tasks: data });
-      });
-  }
+  // // Need to figure out component lifecylce
+  // componentDidMount() {
+  //   this.state.tasks = this.props.tasks;
+  // }
+
   render() {
     return (
       <div>
