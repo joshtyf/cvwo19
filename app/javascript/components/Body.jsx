@@ -2,77 +2,55 @@ import React from "react";
 import PropTypes from "prop-types";
 import AllTasks from "./AllTasks";
 import NewTask from "./NewTask";
+import axios from "axios";
+
+const csrfToken = document.querySelector('[name="csrf-token"]').content;
+axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+
 class Body extends React.Component {
   constructor(props) {
     super(props);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.addNewTask = this.addNewTask.bind(this);
     this.handleTaskDelete = this.handleTaskDelete.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
-    this.state = { tasks: this.props.tasks };
+    this.state = { tasks: [] };
   }
 
-  handleFormSubmit(description, category) {
-    let body = JSON.stringify({
-      task: { description: description, category: category }
-    });
-    fetch("/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: body
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(task => {
-        this.addNewTask(task);
-      });
+  componentDidMount() {
+    axios
+      .get("/show")
+      .then(response => this.setState({ tasks: response.data }));
   }
 
-  addNewTask(task) {
-    this.setState({
-      tasks: this.state.tasks.concat(task)
-    });
+  handleFormSubmit(data) {
+    axios
+      .post("/create", data)
+      .then(response => this.setState({ tasks: response.data }));
   }
 
   handleTaskDelete(id) {
-    fetch(`/tasks/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(response => {
-      this.deleteTask(id);
-    });
+    axios
+      .delete(`delete/${id}`)
+      .then(response => this.setState({ tasks: response.data }));
   }
 
-  deleteTask(id) {
-    var newTasks = this.state.tasks.filter(task => task.id !== id);
-    console.log(newTasks);
-    this.setState({
-      tasks: newTasks
-    });
-  }
-
-  handleUpdateTask(task) {
-    console.log(task);
-    fetch(`tasks/${task.id}`, {
-      method: "PUT",
-      body: JSON.stringify({ task: task }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(response => {
-      this.updateTask(task);
-    });
+  handleUpdateTask(data) {
+    // fetch(`tasks/${task.id}`, {
+    //   method: "PUT",
+    //   body: JSON.stringify({ task: task }),
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // }).then(response => {
+    //   this.updateTask(task);
+    // });
+    axios
+      .put(`update/${data.task.id}`, data)
+      .then(response => this.setState({ tasks: response.data }));
   }
 
   updateTask(task) {
-    console.log(task);
     const filter_id = task.id;
     let newTasks = this.state.tasks.filter(task => task.id !== filter_id);
     newTasks.push(task);
@@ -80,11 +58,6 @@ class Body extends React.Component {
       tasks: newTasks
     });
   }
-
-  // // Need to figure out component lifecylce
-  // componentDidMount() {
-  //   this.state.tasks = this.props.tasks;
-  // }
 
   render() {
     return (

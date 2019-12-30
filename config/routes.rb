@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # get 'welcome/index'
   root 'tasks#index'
-  resources :categories, :tasks
+  get 'show', to: 'tasks#show'
+  post 'create', to: 'tasks#create'
+  delete 'delete/:id(.:format)', to: 'tasks#destroy'
+  put 'update/:id(.:format)', to: 'tasks#update'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

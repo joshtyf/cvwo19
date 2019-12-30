@@ -12,14 +12,15 @@ class Task extends React.Component {
       let description = this.description.value;
       let category = this.category.value;
       let id = this.props.task.id;
-      let cat_id = this.props.task.category_id;
-      let task = {
-        id: id,
-        description: description,
-        category: category,
-        cat_id: cat_id
+      let cat_id = this.props.task.category.id;
+      var data = {
+        task: {
+          id: id,
+          description: description,
+          category_attributes: { id: cat_id, name: category }
+        }
       };
-      this.props.handleUpdateTask(task);
+      this.props.handleUpdateTask(data);
     }
     this.setState({
       editable: !this.state.editable

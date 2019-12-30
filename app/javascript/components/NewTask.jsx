@@ -6,11 +6,15 @@ const NewTask = props => {
   return (
     <form
       onSubmit={event => {
-        props.handleFormSubmit(
-          formFields.description.value,
-          formFields.category.value
-        );
-        event.target.reset();
+        event.preventDefault(); // prevents page refresh
+        var data = {
+          task: {
+            description: formFields.description.value,
+            category: formFields.category.value
+          }
+        };
+        props.handleFormSubmit(data);
+        event.target.reset(); // reset form fields
       }}
     >
       <input
