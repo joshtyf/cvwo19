@@ -1,35 +1,35 @@
-## Name and Matriculation No.
+# Name and Matriculation No.
 Joshua Tan Yin Feng
 A0199502Y
 
 ![Proof of Installation of Rails](rails_proof.png)
 
-## Overall Structure
-### Controllers
+# Overall Structure
+## Controllers
 - Tasks
 - Categories
 
-### Models
+## Models
 - Task
 - Category
 
-### Task Controller
+## Task Controller
 Task controller will contain `index`, `create`, `update` and `delete` methods.
 
-####Index
+###Index
 - Will find all tasks and render
 
-####Create
+###Create
 - Will accept form data and create new task
 - Return new task data to the react component which will then append it to `this.state.tasks`
 
-####Update
+###Update
 - Will accept form data and update task
 - Return task data to the react component which will then update `this.state.tasks`
 
-#####Delete
+###Delete
 - Will accept `task.id` and delete task
 - The react component will then update `this.state.tasks`
 
-###REST API
-Axios will be the REST api to be used.
+##REST API
+Axios will help to handle all REST calls
