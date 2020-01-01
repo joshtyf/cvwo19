@@ -28,13 +28,13 @@ class TasksController < ApplicationController
   end
 
   def search
-    results = Task.where("lower(description) LIKE ?", "%#{params[:search]}%".downcase)
+    results = Task.where("lower(description) LIKE ?", "%#{params[:search]}%".downcase).includes(:category).as_json(include: { category: { only: [:name] } })
     render json: results
   end
 
   private
 
   def task_params
-    params.require(:task).permit(:id, :description, category_attributes: [:id, :name])
+    params.require(:task).permit(:id, :description, :category, category_attributes: [:id, :name])
   end
 end

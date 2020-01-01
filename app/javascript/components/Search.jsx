@@ -6,10 +6,6 @@ class Search extends React.Component {
   }
 
   render() {
-    var results = this.props.results.map(result => (
-      <li key={result.id}>{result.description}</li>
-    ));
-
     return (
       <div>
         <form>
@@ -26,7 +22,6 @@ class Search extends React.Component {
             />
           </div>
         </form>
-        <div>{results}</div>
       </div>
     );
   }

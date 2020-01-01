@@ -15,7 +15,7 @@ class Body extends React.Component {
     this.handleTaskDelete = this.handleTaskDelete.bind(this);
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = { tasks: [], search_results: [] };
+    this.state = { tasks: [] };
   }
 
   componentDidMount() {
@@ -43,28 +43,25 @@ class Body extends React.Component {
   }
 
   handleChange(event) {
-    console.log(this.state.search_results);
     axios
       .post("/search", {
         search: event.target.value
       })
       .then(response => {
         this.setState({
-          search_results: response.data
+          tasks: response.data
         });
-        // console.log(response.data);
       });
-    console.log(this.state.search_results);
   }
 
   render() {
     return (
       <div>
-        <Search
-          handleChange={this.handleChange}
-          results={this.state.search_results}
-        />
+        <h1>Task Manager</h1>
+        <Search handleChange={this.handleChange} />
+        <br />
         <NewTask handleFormSubmit={this.handleFormSubmit} />
+        <br />
         <AllTasks
           tasks={this.state.tasks}
           handleTaskDelete={this.handleTaskDelete}
