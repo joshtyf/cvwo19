@@ -27,6 +27,11 @@ class TasksController < ApplicationController
     render json: tasks
   end
 
+  def search
+    results = Task.where("lower(description) LIKE ?", "%#{params[:search]}%".downcase)
+    render json: results
+  end
+
   private
 
   def task_params
