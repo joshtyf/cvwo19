@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Form from "react-bootstrap/Form";
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -7,17 +8,16 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="col-auto">
         <form>
-          <div>
-            <label>Search for task</label>
-            <br />
+          <div className="form-group">
             <input
-              onChange={this.props.handleChange}
-              autoComplete="off"
               type="text"
+              autoComplete="off"
+              onChange={this.props.handleChange}
+              className="form-control"
               name="description"
-              placeholder="type task description"
+              placeholder="Search for a task"
               value={this.props.name}
             />
           </div>

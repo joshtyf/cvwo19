@@ -4,6 +4,7 @@ import AllTasks from "./AllTasks";
 import NewTask from "./NewTask";
 import axios from "axios";
 import Search from "./Search";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const csrfToken = document.querySelector('[name="csrf-token"]').content;
 axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
@@ -56,23 +57,25 @@ class Body extends React.Component {
 
   render() {
     return (
-      <div>
-        <link
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossOrigin="anonymous"
-        ></link>
-        <h1>Task Manager</h1>
-        <Search handleChange={this.handleChange} />
-        <br />
-        <NewTask handleFormSubmit={this.handleFormSubmit} />
-        <br />
-        <AllTasks
-          tasks={this.state.tasks}
-          handleTaskDelete={this.handleTaskDelete}
-          handleUpdateTask={this.handleUpdateTask}
-        />
+      <div className="Container">
+        <div className="row justify-content-center">
+          <div className="col-auto">
+            <h1>Task Manager</h1>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <Search handleChange={this.handleChange} />
+        </div>
+        <div className="row justify-content-center">
+          <NewTask handleFormSubmit={this.handleFormSubmit} />
+        </div>
+        <div className="row justify-content-center">
+          <AllTasks
+            tasks={this.state.tasks}
+            handleTaskDelete={this.handleTaskDelete}
+            handleUpdateTask={this.handleUpdateTask}
+          />
+        </div>
       </div>
     );
   }

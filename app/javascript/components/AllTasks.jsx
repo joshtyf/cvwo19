@@ -6,16 +6,16 @@ import Task from "./Task";
 const AllTasks = props => {
   var tasks = props.tasks.map(task => {
     return (
-      <div key={task.id}>
+      <li className="list-group-item" key={task.id}>
         <Task
           task={task}
           handleTaskDelete={props.handleTaskDelete}
           handleUpdateTask={props.handleUpdateTask}
         />
-      </div>
+      </li>
     );
   });
-  return <div>{tasks}</div>;
+  return <ul className="list-group w-50">{tasks}</ul>;
 };
 
 export default AllTasks;

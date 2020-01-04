@@ -35,7 +35,7 @@ class Task extends React.Component {
         defaultValue={this.props.task.description}
       />
     ) : (
-      <h3>{this.props.task.description}</h3>
+      <dt class="col-auto">{this.props.task.description}</dt>
     );
     let category = this.state.editable ? (
       <input
@@ -44,20 +44,40 @@ class Task extends React.Component {
         defaultValue={this.props.task.category.name}
       />
     ) : (
-      <p>{this.props.task.category.name}</p>
+      <dd class="col-auto text-muted">{this.props.task.category.name}</dd>
     );
 
     return (
-      <div>
-        <div>{description}</div>
-        <div>{category}</div>
-        <button onClick={() => this.handleEdit()}>
-          {this.state.editable ? "Submit" : "Edit"}
-        </button>
-        <button onClick={() => this.props.handleTaskDelete(this.props.task.id)}>
-          Delete
-        </button>
-      </div>
+      // <dl className="row align-items-center">
+      //   <dt className="col-auto">{description}</dt>
+      //   <dd className="col-auto">{category}</dd>
+      //   <button onClick={() => this.handleEdit()}>
+      //     {this.state.editable ? "Submit" : "Edit"}
+      //   </button>
+      //   <button onClick={() => this.props.handleTaskDelete(this.props.task.id)}>
+      //     Delete
+      //   </button>
+      // </dl>
+      <dl className="row my-1">
+        {description}
+        {category}
+        <div className="col-auto ml-auto">
+          <button
+            type="button"
+            className="btn btn-sm btn-outline-info mr-2"
+            onClick={() => this.handleEdit()}
+          >
+            {this.state.editable ? "Submit" : "Edit"}
+          </button>
+          <button
+            type="button"
+            className="btn btn-sm btn-outline-danger"
+            onClick={() => this.props.handleTaskDelete(this.props.task.id)}
+          >
+            Delete
+          </button>
+        </div>
+      </dl>
     );
   }
 }
