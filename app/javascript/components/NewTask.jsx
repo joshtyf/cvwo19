@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 const NewTask = props => {
   let formFields = {};
   return (
-    <div className="col-auto">
+    <div>
       <form
         onSubmit={event => {
           event.preventDefault(); // prevents page refresh
@@ -37,7 +37,7 @@ const NewTask = props => {
                 placeholder="Enter task category"
               />
             </div>
-            <button type="button" className="btn btn-primary col-auto">
+            <button type="button submit" className="btn btn-primary col-auto">
               Add task
             </button>
           </div>

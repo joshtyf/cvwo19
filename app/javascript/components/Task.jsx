@@ -29,22 +29,30 @@ class Task extends React.Component {
 
   render() {
     let description = this.state.editable ? (
-      <input
-        type="text"
-        ref={input => (this.description = input)}
-        defaultValue={this.props.task.description}
-      />
+      <div className="col-auto input-group-sm">
+        <input
+          type="text"
+          className="form-control"
+          ref={input => (this.description = input)}
+          defaultValue={this.props.task.description}
+          placeholder="Description"
+        />
+      </div>
     ) : (
-      <dt class="col-auto">{this.props.task.description}</dt>
+      <dt className="col-auto">{this.props.task.description}</dt>
     );
     let category = this.state.editable ? (
-      <input
-        type="string"
-        ref={input => (this.category = input)}
-        defaultValue={this.props.task.category.name}
-      />
+      <div className="col-auto input-group-sm">
+        <input
+          className="form-control"
+          type="string"
+          ref={input => (this.category = input)}
+          defaultValue={this.props.task.category.name}
+          placeholder="Category"
+        />
+      </div>
     ) : (
-      <dd class="col-auto text-muted">{this.props.task.category.name}</dd>
+      <dd className="col-auto text-muted">{this.props.task.category.name}</dd>
     );
 
     return (

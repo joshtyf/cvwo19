@@ -5,6 +5,7 @@ import NewTask from "./NewTask";
 import axios from "axios";
 import Search from "./Search";
 import "bootstrap/dist/css/bootstrap.min.css";
+import SideBar from "./SideBar";
 
 const csrfToken = document.querySelector('[name="csrf-token"]').content;
 axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
@@ -16,13 +17,17 @@ class Body extends React.Component {
     this.handleTaskDelete = this.handleTaskDelete.bind(this);
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = { tasks: [] };
+    this.handleGetCategory = this.handleGetCategory.bind(this);
+    this.state = { tasks: [], categories: [] };
   }
 
   componentDidMount() {
     axios
       .get("/show")
       .then(response => this.setState({ tasks: response.data }));
+    axios
+      .get("/categories")
+      .then(response => this.setState({ categories: response.data }));
   }
 
   handleFormSubmit(data) {
@@ -55,26 +60,43 @@ class Body extends React.Component {
       });
   }
 
+  handleGetCategory(event) {
+    event.preventDefault();
+    axios
+      .post("/filter", {
+        cat_id: event.target.getAttribute("value")
+      })
+      .then(response => {
+        this.setState({
+          tasks: response.data
+        });
+      });
+  }
+
   render() {
     return (
       <div className="Container">
-        <div className="row justify-content-center">
-          <div className="col-auto">
-            <h1>Task Manager</h1>
-          </div>
-        </div>
-        <div className="row justify-content-center">
-          <Search handleChange={this.handleChange} />
-        </div>
-        <div className="row justify-content-center">
-          <NewTask handleFormSubmit={this.handleFormSubmit} />
-        </div>
-        <div className="row justify-content-center">
-          <AllTasks
-            tasks={this.state.tasks}
-            handleTaskDelete={this.handleTaskDelete}
-            handleUpdateTask={this.handleUpdateTask}
+        <div className="row">
+          <SideBar
+            categories={this.state.categories}
+            handleGetCategory={this.handleGetCategory}
           />
+          <div className="col">
+            <h1>Task Manager</h1>
+            <div>
+              <Search handleChange={this.handleChange} />
+            </div>
+            <div>
+              <NewTask handleFormSubmit={this.handleFormSubmit} />
+            </div>
+            <div>
+              <AllTasks
+                tasks={this.state.tasks}
+                handleTaskDelete={this.handleTaskDelete}
+                handleUpdateTask={this.handleUpdateTask}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );
