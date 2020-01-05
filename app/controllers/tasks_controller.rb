@@ -7,6 +7,12 @@ class TasksController < ApplicationController
     render json: tasks
   end
 
+  def filter
+    tasks = Task.where(category_id: params[:cat_id]).includes(:category).as_json(include: { category: { only: [:name] } })
+    render json: tasks
+  end
+
+
   def create
     category = Category.find_or_create_by(name: task_params["category"])
     Task.create(description: task_params["description"], category: category)
