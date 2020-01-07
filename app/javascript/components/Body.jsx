@@ -43,6 +43,7 @@ class Body extends React.Component {
   }
 
   handleUpdateTask(data) {
+    console.log(data);
     axios
       .put(`update/${data.task.id}`, data)
       .then(response => this.setState({ tasks: response.data }));

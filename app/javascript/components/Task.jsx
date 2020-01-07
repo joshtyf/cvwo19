@@ -12,7 +12,7 @@ class Task extends React.Component {
       let description = this.description.value;
       let category = this.category.value;
       let id = this.props.task.id;
-      let cat_id = this.props.task.category.id;
+      let cat_id = this.props.task.category_id;
       var data = {
         task: {
           id: id,

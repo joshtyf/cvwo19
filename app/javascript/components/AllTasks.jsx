@@ -15,7 +15,7 @@ const AllTasks = props => {
       </li>
     );
   });
-  return <ul className="list-group w-50">{tasks}</ul>;
+  return <ul className="list-group w-75">{tasks}</ul>;
 };
 
 export default AllTasks;
