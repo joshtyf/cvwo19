@@ -27,7 +27,19 @@ class SideBar extends React.Component {
         </h6>
         <nav>
           <div className="sidebar-sticky">
-            <ul className="nav flex-column">{categories}</ul>
+            <ul className="nav flex-column">
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  href="#"
+                  onClick={this.props.handleGetCategory}
+                  value="all"
+                >
+                  All
+                </a>
+              </li>
+              {categories}
+            </ul>
           </div>
         </nav>
       </div>

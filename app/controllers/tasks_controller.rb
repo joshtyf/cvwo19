@@ -8,7 +8,11 @@ class TasksController < ApplicationController
   end
 
   def filter
-    tasks = Task.where(category_id: params[:cat_id]).includes(:category).as_json(include: { category: { only: [:name] } })
+    if params[:cat_id] == "all"
+      tasks = Task.all.includes(:category).as_json(include: { category: { only: [:name] } })
+    else 
+      tasks = Task.where(category_id: params[:cat_id]).includes(:category).as_json(include: { category: { only: [:name] } })
+    end
     render json: tasks
   end
 
