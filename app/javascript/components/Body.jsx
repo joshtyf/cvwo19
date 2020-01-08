@@ -25,28 +25,37 @@ class Body extends React.Component {
     axios
       .get("/show")
       .then(response => this.setState({ tasks: response.data }));
-    axios
-      .get("/categories")
-      .then(response => this.setState({ categories: response.data }));
+    axios.get("/categories").then(response => {
+      console.log(response.data);
+      this.setState({ categories: response.data });
+    });
   }
 
   handleFormSubmit(data) {
-    axios
-      .post("/create", data)
-      .then(response => this.setState({ tasks: response.data }));
+    axios.post("/create", data).then(response => {
+      axios // update state with categories
+        .get("/categories")
+        .then(response => this.setState({ categories: response.data }));
+      this.setState({ tasks: response.data }); // update state with tasks
+    });
   }
 
   handleTaskDelete(id) {
-    axios
-      .delete(`delete/${id}`)
-      .then(response => this.setState({ tasks: response.data }));
+    axios.delete(`delete/${id}`).then(response => {
+      axios // update state with categories
+        .get("/categories")
+        .then(response => this.setState({ categories: response.data }));
+      this.setState({ tasks: response.data });
+    });
   }
 
   handleUpdateTask(data) {
-    console.log(data);
-    axios
-      .put(`update/${data.task.id}`, data)
-      .then(response => this.setState({ tasks: response.data }));
+    axios.put(`update/${data.task.id}`, data).then(response => {
+      axios // update state with categories
+        .get("/categories")
+        .then(response => this.setState({ categories: response.data }));
+      this.setState({ tasks: response.data });
+    });
   }
 
   handleChange(event) {
