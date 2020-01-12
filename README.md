@@ -1,31 +1,25 @@
-## Name and Matriculation No.
-Joshua Tan Yin Feng
-A0199502Y
+# README
 
-![Proof of Installation of Rails](rails_proof.png)
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## Overall Structure
-### Controllers
-- Tasks
-- Categories
+Things you may want to cover:
 
-### Models
-- Task
-- Category
+* Ruby version
 
-### Task Controller
-Task controller will contain `index`, `create`, `update` and `delete` methods.
+* System dependencies
 
-#### Index
-- Will find all tasks and render
+* Configuration
 
-#### Create
-- Will accept form data and create new task
-- Return new task data to the react component which will then append it to `this.state.tasks`
+* Database creation
 
-#### Update
-- Will accept form data and update task
-- Return task data to the react component which will then update `this.state.tasks`
+* Database initialization
 
-### REST API
-Axios will help to handle all REST calls
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+# myapp
