@@ -4,7 +4,6 @@ import AllTasks from "./AllTasks";
 import NewTask from "./NewTask";
 import axios from "axios";
 import Search from "./Search";
-import "bootstrap/dist/css/bootstrap.min.css";
 import SideBar from "./SideBar";
 
 const csrfToken = document.querySelector('[name="csrf-token"]').content;
