@@ -99,16 +99,35 @@ class Body extends React.Component {
     // };
     // var response = SendGrid.send(msg);
     // console.log(response);
-    console.log(process.env.REACT_APP_SENDGRID_API_KEY);
-    SendGrid.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY);
-    const msg = {
-      to: "e0406483@u.nus.edu",
-      from: "e0406483@u.nus.edu",
-      subject: "Sending with Twilio SendGrid is Fun",
-      text: "and easy to do anywhere, even with Node.js",
-      html: "<strong>and easy to do anywhere, even with Node.js</strong>"
-    };
-    SendGrid.send(msg);
+    axios.post(
+      "https://api.sendgrid.com/v3/mail/send",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`
+        }
+      },
+      {
+        personalizations: [
+          {
+            to: [
+              {
+                email: "e0406483@u.nus.edu"
+              }
+            ],
+            subject: "Hello, World!"
+          }
+        ],
+        from: {
+          email: "e0406483@u.nus.edu"
+        },
+        content: [
+          {
+            type: "text/plain",
+            value: "Hello, World!"
+          }
+        ]
+      }
+    );
   }
 
   render() {
