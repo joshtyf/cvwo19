@@ -10,6 +10,7 @@ const AllTasks = props => {
           task={task}
           handleTaskDelete={props.handleTaskDelete}
           handleUpdateTask={props.handleUpdateTask}
+          handleRemind={props.handleRemind}
         />
       </li>
     );

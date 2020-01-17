@@ -5,6 +5,9 @@ import NewTask from "./NewTask";
 import axios from "axios";
 import Search from "./Search";
 import SideBar from "./SideBar";
+import $ from "jquery";
+import Popper from "popper.js";
+import SendGrid from "@sendgrid/mail";
 
 const csrfToken = document.querySelector('[name="csrf-token"]').content;
 axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
@@ -17,6 +20,7 @@ class Body extends React.Component {
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleGetCategory = this.handleGetCategory.bind(this);
+    this.handleRemind = this.handleRemind.bind(this);
     this.state = { tasks: [], categories: [] };
   }
 
@@ -25,7 +29,6 @@ class Body extends React.Component {
       .get("/show")
       .then(response => this.setState({ tasks: response.data }));
     axios.get("/categories").then(response => {
-      console.log(response.data);
       this.setState({ categories: response.data });
     });
   }
@@ -82,6 +85,15 @@ class Body extends React.Component {
       });
   }
 
+  handleRemind(data) {
+    console.log(data);
+    // data = JSON.parse(data);
+    const sg = require("@sendgrid/mail");
+    sg.setApiKey(process.env.SENDGRID_API_KEY);
+    var response = sg.send(data);
+    console.log(response);
+  }
+
   render() {
     return (
       <div className="Container">
@@ -103,6 +115,7 @@ class Body extends React.Component {
                 tasks={this.state.tasks}
                 handleTaskDelete={this.handleTaskDelete}
                 handleUpdateTask={this.handleUpdateTask}
+                handleRemind={this.handleRemind}
               />
             </div>
           </div>

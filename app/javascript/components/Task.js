@@ -5,6 +5,8 @@ class Task extends React.Component {
     super(props);
     this.state = { editable: false };
     this.handleEdit = this.handleEdit.bind(this);
+    this.formatDateTime = this.formatDateTime.bind(this);
+    this.state = { formFields: [] };
   }
 
   handleEdit() {
@@ -25,6 +27,22 @@ class Task extends React.Component {
     this.setState({
       editable: !this.state.editable
     });
+  }
+
+  formatDateTime(date, time) {
+    var dateResult = date.split("/");
+    if (dateResult[0] < 10) {
+      dateResult[0] = "0" + dateResult[0];
+    }
+    if (dateResult[1] < 10) {
+      dateResult[1] = "0" + dateResult[1];
+    }
+    if (dateResult[2].length < 3) {
+      dateResult[2] = "20" + dateResult[2];
+    }
+    var dateString = dateResult[2] + "-" + dateResult[1] + "-" + dateResult[0];
+    var timeString = time.slice(0, 2) + ":" + time.slice(2, 4);
+    return dateString + "T" + timeString;
   }
 
   render() {
@@ -70,20 +88,143 @@ class Task extends React.Component {
         {description}
         {category}
         <div className="col-auto ml-auto">
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-info mr-2"
-            onClick={() => this.handleEdit()}
-          >
-            {this.state.editable ? "Submit" : "Edit"}
-          </button>
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-danger"
-            onClick={() => this.props.handleTaskDelete(this.props.task.id)}
-          >
-            Delete
-          </button>
+          <div className="row">
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-info mr-2"
+              onClick={() => this.handleEdit()}
+            >
+              {this.state.editable ? "Submit" : "Edit"}
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-danger mr-2"
+              onClick={() => this.props.handleTaskDelete(this.props.task.id)}
+            >
+              Delete
+            </button>
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
+              data-toggle="modal"
+              data-target="#reminderModal"
+            >
+              Remind me
+            </button>
+            <form
+              onSubmit={event => {
+                event.preventDefault();
+                var dateString = this.formatDateTime(
+                  this.state.formFields.date.value,
+                  this.state.formFields.time.value
+                );
+                var date = new Date(dateString);
+                date.setHours(date.getHours() - 8);
+                date = date.getTime() / 1000;
+
+                var data = {
+                  personalizations: [
+                    {
+                      to: [
+                        {
+                          email: this.state.formFields.email.value
+                        }
+                      ],
+                      subject: "Reminder from task manager"
+                    }
+                  ],
+                  from: {
+                    email: "test@example.com"
+                  },
+                  content: [
+                    {
+                      type: "text/plain",
+                      value: "Hello, Email!"
+                    }
+                  ],
+                  send_at: date
+                };
+                this.props.handleRemind(data);
+                event.target.reset();
+              }}
+            >
+              <div
+                className="modal fade"
+                id="reminderModal"
+                tabIndex="-1"
+                role="dialog"
+                aria-labelledby="reminderModalLabel"
+                aria-hidden="true"
+              >
+                <div className="modal-dialog" role="document">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="reminderModalLabel">
+                        Remind me
+                      </h5>
+                      <button
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                      <p>Reminder will be sent to your email!</p>
+
+                      <div className="row form-group">
+                        <div className="col">
+                          <label htmlFor="Date">Date</label>
+                          <input
+                            id="Date"
+                            type="text"
+                            className="form-control"
+                            placeholder="dd/mm/yyyy"
+                            ref={input => (this.state.formFields.date = input)}
+                          />
+                        </div>
+                        <div className="col">
+                          <label htmlFor="Time">Time</label>
+                          <input
+                            id="Time"
+                            type="text"
+                            className="form-control"
+                            placeholder="24hr time format eg. 1630"
+                            ref={input => (this.state.formFields.time = input)}
+                          />
+                        </div>
+                      </div>
+                      <div className="row form-group">
+                        <div className="col">
+                          <label htmlFor="Email">Email</label>
+                          <input
+                            id="Email"
+                            type="email"
+                            className="form-control"
+                            ref={input => (this.state.formFields.email = input)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Cancel
+                      </button>
+                      <button type="button submit" className="btn btn-primary">
+                        Send reminder
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </dl>
     );
