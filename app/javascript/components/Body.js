@@ -99,25 +99,17 @@ class Body extends React.Component {
     // };
     // var response = SendGrid.send(msg);
     // console.log(response);
-    var helper = require("@sendgrid/mail");
-    var from_email = new helper.Email("test@example.com");
-    var to_email = new helper.Email("e0406483@u.nus.edu");
-    var subject = "Hello World from the SendGrid Node.js Library!";
-    var content = new helper.Content("text/plain", "Hello, Email!");
-    var mail = new helper.Mail(from_email, subject, to_email, content);
-
-    var sg = require("@sendgrid/mail")(process.env.REACT_APP_SENDGRID_API_KEY);
-    var request = sg.emptyRequest({
-      method: "POST",
-      path: "/v3/mail/send",
-      body: mail.toJSON()
-    });
-
-    sg.API(request, function(error, response) {
-      console.log(response.statusCode);
-      console.log(response.body);
-      console.log(response.headers);
-    });
+    console.log(process.env.REACT_APP_SENDGRID_API_KEY);
+    SendGrid.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY);
+    console.log(sgMail);
+    const msg = {
+      to: "e0406483@u.nus.edu",
+      from: "e0406483@u.nus.edu",
+      subject: "Sending with Twilio SendGrid is Fun",
+      text: "and easy to do anywhere, even with Node.js",
+      html: "<strong>and easy to do anywhere, even with Node.js</strong>"
+    };
+    SendGrid.send(msg);
   }
 
   render() {
