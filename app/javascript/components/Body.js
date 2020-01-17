@@ -100,8 +100,8 @@ class Body extends React.Component {
     // var response = SendGrid.send(msg);
     // console.log(response);
     const sgMail = require("@sendgrid/mail");
-    console.log(process.env);
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    console.log(process.env.REACT_APP_SENDGRID_API_KEY);
+    sgMail.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY);
     const msg = {
       to: "e0406483@u.nus.edu",
       from: "e0406483@u.nus.edu",
