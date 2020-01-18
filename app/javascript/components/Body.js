@@ -137,7 +137,13 @@ class Body extends React.Component {
     //   console.log(response.config);
     // });
 
-    axios.get("/remind");
+    axios.get("/remind").then(response => {
+      console.log(response.data);
+      console.log(response.status);
+      console.log(response.statusText);
+      console.log(response.headers);
+      console.log(response.config);
+    });
   }
 
   render() {
