@@ -1,5 +1,4 @@
 require 'sendgrid-ruby'
-include SendGrid
 
 class TasksController < ApplicationController
   def index
@@ -56,9 +55,8 @@ class TasksController < ApplicationController
     render json: results
   end
 
-  def remind 
-    
-    
+  def remind   
+    include SendGrid
     from = Email.new(email: 'test@example.com')
     subject = 'Hello World from the SendGrid Ruby Library!'
     to = Email.new(email: 'e0406483@u.nus.edu')
