@@ -86,57 +86,6 @@ class Body extends React.Component {
   }
 
   handleRemind() {
-    // console.log(data);
-    // data = JSON.parse(data);
-    // SendGrid.setApiKey(process.env.SENDGRID_API_KEY);
-
-    // const msg = {
-    //   to: "e0406483@u.nus.edu",
-    //   from: "test@example.com",
-    //   subject: "Sending with SendGrid is Fun",
-    //   text: "and easy to do anywhere, even with Node.js",
-    //   html: "<strong>and easy to do anywhere, even with Node.js</strong>"
-    // };
-    // var response = SendGrid.send(msg);
-    // console.log(response);
-
-    // console.log(`Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`);
-    // var config = {
-    //   headers: {
-    //     Authorization: `Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`,
-    //     "Content-Type": "application/json"
-    //   }
-    // };
-    // var data = {
-    //   personalizations: [
-    //     {
-    //       to: [
-    //         {
-    //           email: "e0406483@u.nus.edu"
-    //         }
-    //       ],
-    //       subject: "Hello, World!"
-    //     }
-    //   ],
-    //   from: {
-    //     email: "e0406483@u.nus.edu"
-    //   },
-    //   content: [
-    //     {
-    //       type: "text/plain",
-    //       value: "Hello, World!"
-    //     }
-    //   ]
-    // };
-    // var url = "https://api.sendgrid.com/v3/mail/send";
-    // axios.post(url, JSON.stringify(data), config).then(response => {
-    //   console.log(response.data);
-    //   console.log(response.status);
-    //   console.log(response.statusText);
-    //   console.log(response.headers);
-    //   console.log(response.config);
-    // });
-
     axios.get("/remind").then(response => {
       console.log(response.data);
       console.log(response.status);

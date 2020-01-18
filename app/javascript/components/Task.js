@@ -74,16 +74,6 @@ class Task extends React.Component {
     );
 
     return (
-      // <dl className="row align-items-center">
-      //   <dt className="col-auto">{description}</dt>
-      //   <dd className="col-auto">{category}</dd>
-      //   <button onClick={() => this.handleEdit()}>
-      //     {this.state.editable ? "Submit" : "Edit"}
-      //   </button>
-      //   <button onClick={() => this.props.handleTaskDelete(this.props.task.id)}>
-      //     Delete
-      //   </button>
-      // </dl>
       <dl className="row my-1">
         {description}
         {category}
