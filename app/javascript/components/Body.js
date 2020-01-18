@@ -102,11 +102,6 @@ class Body extends React.Component {
     axios.post(
       "https://api.sendgrid.com/v3/mail/send",
       {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`
-        }
-      },
-      {
         personalizations: [
           {
             to: [
@@ -126,6 +121,12 @@ class Body extends React.Component {
             value: "Hello, World!"
           }
         ]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`,
+          "Content-Type": "application/json"
+        }
       }
     );
   }
