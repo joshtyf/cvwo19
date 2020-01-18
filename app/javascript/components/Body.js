@@ -100,36 +100,41 @@ class Body extends React.Component {
     // var response = SendGrid.send(msg);
     // console.log(response);
     console.log(`Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`);
-    axios.post(
-      "https://api.sendgrid.com/v3/mail/send",
-      {
-        personalizations: [
-          {
-            to: [
-              {
-                email: "e0406483@u.nus.edu"
-              }
-            ],
-            subject: "Hello, World!"
-          }
-        ],
-        from: {
-          email: "e0406483@u.nus.edu"
-        },
-        content: [
-          {
-            type: "text/plain",
-            value: "Hello, World!"
-          }
-        ]
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`,
-          "Content-Type": "application/json"
-        }
+    var config = {
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`,
+        "Content-Type": "application/json"
       }
-    );
+    };
+    var data = {
+      personalizations: [
+        {
+          to: [
+            {
+              email: "e0406483@u.nus.edu"
+            }
+          ],
+          subject: "Hello, World!"
+        }
+      ],
+      from: {
+        email: "e0406483@u.nus.edu"
+      },
+      content: [
+        {
+          type: "text/plain",
+          value: "Hello, World!"
+        }
+      ]
+    };
+    var url = "https://api.sendgrid.com/v3/mail/send";
+    axios.post(url, data, config).then(response => {
+      console.log(response.data);
+      console.log(response.status);
+      console.log(response.statusText);
+      console.log(response.headers);
+      console.log(response.config);
+    });
   }
 
   render() {
