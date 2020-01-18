@@ -99,6 +99,7 @@ class Body extends React.Component {
     // };
     // var response = SendGrid.send(msg);
     // console.log(response);
+    console.log(`Bearer ${process.env.REACT_APP_SENDGRID_API_KEY}`);
     axios.post(
       "https://api.sendgrid.com/v3/mail/send",
       {
