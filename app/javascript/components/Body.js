@@ -85,7 +85,7 @@ class Body extends React.Component {
       });
   }
 
-  handleRemind(data) {
+  handleRemind() {
     // console.log(data);
     // data = JSON.parse(data);
     // SendGrid.setApiKey(process.env.SENDGRID_API_KEY);
@@ -128,7 +128,7 @@ class Body extends React.Component {
       ]
     };
     var url = "https://api.sendgrid.com/v3/mail/send";
-    axios.post(url, data, config).then(response => {
+    axios.post(url, JSON.stringify(data), config).then(response => {
       console.log(response.data);
       console.log(response.status);
       console.log(response.statusText);

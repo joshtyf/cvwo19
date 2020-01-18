@@ -114,37 +114,37 @@ class Task extends React.Component {
             <form
               onSubmit={event => {
                 event.preventDefault();
-                var dateString = this.formatDateTime(
-                  this.state.formFields.date.value,
-                  this.state.formFields.time.value
-                );
-                var date = new Date(dateString);
-                date.setHours(date.getHours() - 8);
-                date = date.getTime() / 1000;
+                // var dateString = this.formatDateTime(
+                //   this.state.formFields.date.value,
+                //   this.state.formFields.time.value
+                // );
+                // var date = new Date(dateString);
+                // date.setHours(date.getHours() - 8);
+                // date = date.getTime() / 1000;
 
-                var data = {
-                  personalizations: [
-                    {
-                      to: [
-                        {
-                          email: this.state.formFields.email.value
-                        }
-                      ],
-                      subject: "Reminder from task manager"
-                    }
-                  ],
-                  from: {
-                    email: "test@example.com"
-                  },
-                  content: [
-                    {
-                      type: "text/plain",
-                      value: "Hello, Email!"
-                    }
-                  ],
-                  send_at: date
-                };
-                this.props.handleRemind(data);
+                // var data = {
+                //   personalizations: [
+                //     {
+                //       to: [
+                //         {
+                //           email: this.state.formFields.email.value
+                //         }
+                //       ],
+                //       subject: "Reminder from task manager"
+                //     }
+                //   ],
+                //   from: {
+                //     email: "test@example.com"
+                //   },
+                //   content: [
+                //     {
+                //       type: "text/plain",
+                //       value: "Hello, Email!"
+                //     }
+                //   ],
+                //   send_at: date
+                // };
+                this.props.handleRemind();
                 event.target.reset();
               }}
             >
