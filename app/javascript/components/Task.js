@@ -134,7 +134,13 @@ class Task extends React.Component {
                 //   ],
                 //   send_at: date
                 // };
-                this.props.handleRemind();
+                var data = {
+                  form_data: {
+                    to: this.state.formFields.email.value,
+                    subject: "Reminder from task manager"
+                  }
+                };
+                this.props.handleRemind(data);
                 event.target.reset();
               }}
             >

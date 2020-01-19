@@ -85,8 +85,8 @@ class Body extends React.Component {
       });
   }
 
-  handleRemind() {
-    axios.get("/remind").then(response => {
+  handleRemind(data) {
+    axios.post("/remind", data).then(response => {
       console.log(response.data);
     });
   }
