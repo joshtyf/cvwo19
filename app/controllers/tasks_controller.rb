@@ -63,7 +63,7 @@ class TasksController < ApplicationController
     send_at = form_data[:send_at]
     to = Email.new(email: form_data[:to])
     content = Content.new(type: 'text/plain', value: 'Hello, Email!')
-    mail = Mail.new(from, subject, to, content)
+    mail = Mail.new(from, subject, to, content, send_at)
     sg = SendGrid::API.new(api_key: ENV['REACT_APP_SENDGRID_API_KEY'])
     response = sg.client.mail._('send').post(request_body: mail.to_json)
     render json: response
