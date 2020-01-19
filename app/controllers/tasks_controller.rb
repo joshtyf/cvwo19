@@ -60,6 +60,7 @@ class TasksController < ApplicationController
     form_data = params[:form_data]
     from = Email.new(email: 'test@example.com')
     subject = form_data[:subject]
+    send_at = form_data[:send_at]
     to = Email.new(email: form_data[:to])
     content = Content.new(type: 'text/plain', value: 'Hello, Email!')
     mail = Mail.new(from, subject, to, content)
