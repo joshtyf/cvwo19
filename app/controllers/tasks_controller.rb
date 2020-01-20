@@ -21,7 +21,7 @@ class TasksController < ApplicationController
 
 
   def create
-    category = Category.find_or_create_by(name: task_params["category"])
+    category = ::Category.find_or_create_by(name: task_params["category"])
     category.tasks.create(description: task_params["description"])
     tasks = Task.all.includes(:category).as_json(include: { category: { only: [:name] } })
     render json: tasks
@@ -35,16 +35,16 @@ class TasksController < ApplicationController
 
   def update
     # Get the find or create the new category
-    newCategory = Category.find_or_create_by(name: task_params[:category_attributes][:name])
+    newCategory = ::Category.find_or_create_by(name: task_params[:category_attributes][:name])
     # Query for the task
     task = Task.find(task_params[:id])
     # Get the old category
-    oldCategory = Category.find(task.category_id)
+    oldCategory = ::Category.find(task.category_id)
     # Update the task
     task.update(description: task_params[:description], category_id: newCategory.id)
     # Delete the old category if it no longer has any child associations
     if oldCategory.tasks.empty?
-      Category.destroy(oldCategory.id)
+      ::Category.destroy(oldCategory.id)
     end
 
     tasks = Task.all.includes(:category).as_json(include: { category: { only: [:name] } })
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
     from = Email.new(email: 'test@example.com')
     subject = form_data[:subject]
     to = Email.new(email: form_data[:to])
-    content = Content.new(type: 'text/plain', value: 'Hello, Email!')
+    content = Content.new(type: 'text/plain', value: form_data[:body])
     mail = Mail.new(from, subject, to, content)
     mail.send_at = form_data[:send_at]
     sg = SendGrid::API.new(api_key: ENV['REACT_APP_SENDGRID_API_KEY'])
