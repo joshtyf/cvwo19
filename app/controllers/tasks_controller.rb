@@ -22,9 +22,20 @@ class TasksController < ApplicationController
 
   def create
     category = ::Category.find_or_create_by(name: task_params["category"])
-    category.tasks.create(description: task_params["description"])
-    tasks = Task.all.includes(:category).as_json(include: { category: { only: [:name] } })
-    render json: tasks
+    if category.invalid?
+      render json: category.errors.messages
+    else
+      task = category.tasks.create(description: task_params["description"])
+      if task.invalid?
+        if category.tasks.empty?
+          ::Category.destroy(category.id)
+        end
+        render json: task.errors.messages
+      else
+        tasks = Task.all.includes(:category).as_json(include: { category: { only: [:name] } })
+        render json: tasks
+      end
+    end
   end
 
   def destroy

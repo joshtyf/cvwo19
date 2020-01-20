@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, { array } from "prop-types";
 import AllTasks from "./AllTasks";
 import NewTask from "./NewTask";
 import axios from "axios";
@@ -21,7 +21,8 @@ class Body extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleGetCategory = this.handleGetCategory.bind(this);
     this.handleRemind = this.handleRemind.bind(this);
-    this.state = { tasks: [], categories: [] };
+    this.closeAlert = this.closeAlert.bind(this);
+    this.state = { tasks: [], categories: [], alert: false, alertMessages: "" };
   }
 
   componentDidMount() {
@@ -35,10 +36,28 @@ class Body extends React.Component {
 
   handleFormSubmit(data) {
     axios.post("/create", data).then(response => {
-      axios // update state with categories
-        .get("/categories")
-        .then(response => this.setState({ categories: response.data }));
-      this.setState({ tasks: response.data }); // update state with tasks
+      console.log(response);
+      if (Array.isArray(response.data)) {
+        axios // update state with categories
+          .get("/categories")
+          .then(response => this.setState({ categories: response.data }));
+        this.setState({ tasks: response.data }); // update state with tasks
+      } else {
+        if (Object.keys(response.data)[0] == "name") {
+          this.setState({
+            alertMessages:
+              "category " + response.data[Object.keys(response.data)[0]][0],
+            alert: true
+          });
+        } else {
+          this.setState({
+            alertMessages:
+              "task description " +
+              response.data[Object.keys(response.data)[0]][0],
+            alert: true
+          });
+        }
+      }
     });
   }
 
@@ -91,9 +110,38 @@ class Body extends React.Component {
     });
   }
 
+  closeAlert() {
+    this.setState({ alert: false, alertMessages: "" });
+  }
+
   render() {
+    let alert = this.state.alert ? (
+      <div className="row">
+        <div className="col">
+          <div
+            className="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            {this.state.alertMessages}
+            <button
+              type="button"
+              className="close"
+              onClick={() => this.closeAlert()}
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div></div>
+    );
+
     return (
       <div className="Container">
+        {alert}
         <div className="row">
           <SideBar
             categories={this.state.categories}
