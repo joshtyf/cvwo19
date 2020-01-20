@@ -116,6 +116,7 @@ class Task extends React.Component {
                   form_data: {
                     to: this.state.formFields.email.value,
                     subject: "Reminder from task manager",
+                    body: this.props.task.description,
                     send_at: date
                   }
                 };
