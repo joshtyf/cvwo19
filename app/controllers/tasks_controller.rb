@@ -28,7 +28,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    task = Task.find(params[:id])
+    category = ::Category.find(task.category_id)
     Task.destroy(params[:id])
+    if category.tasks.empty?
+      ::Category.destroy(category.id)
+    end
     tasks = Task.all.includes(:category).as_json(include: { category: { only: [:name] } })
     render json: tasks
   end
