@@ -70,7 +70,7 @@ class TasksController < ApplicationController
   end
 
   def remind   
-    response = Task.sendEmail(params[:form_data]);
+    response = Task.sendMail(params[:form_data]);
     render json: response
   end
 
