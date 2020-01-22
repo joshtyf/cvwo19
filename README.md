@@ -1,5 +1,6 @@
 # Task Manager
 This is a simple task manager app developed for my Computing for Voluntary Welfare Organisations (CVWO) assignment.
+It is built using Ruby on Rails as the backend and React as the frontend
 
 ## Table of contents
 - [Introduction](#introduction)
