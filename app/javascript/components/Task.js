@@ -32,13 +32,16 @@ class Task extends React.Component {
   formatDateTime(date, time) {
     var dateResult = date.split("/");
     if (dateResult[0] < 10) {
+      // day
       dateResult[0] = "0" + dateResult[0];
     }
     if (dateResult[1] < 10) {
+      // month
       dateResult[1] = "0" + dateResult[1];
     }
     if (dateResult[2].length < 3) {
-      dateResult[2] = "20" + dateResult[2];
+      // year
+      dateResult[2] = "20" + dateResult[2]; // assuming to work in the 21st century
     }
     var dateString = dateResult[2] + "-" + dateResult[1] + "-" + dateResult[0];
     var timeString = time.slice(0, 2) + ":" + time.slice(2, 4);
@@ -165,7 +168,7 @@ class Task extends React.Component {
                           <label htmlFor="Time">Time</label>
                           <input
                             id="Time"
-                            type="text"
+                            type="string"
                             className="form-control"
                             placeholder="24hr time format eg. 1630"
                             ref={input => (this.state.formFields.time = input)}
