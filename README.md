@@ -1,25 +1,27 @@
-# README
+# Task Manager
+This is a simple task manager app developed for my Computing for Voluntary Welfare Organisations (CVWO) assignment.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table of contents
+- [Introduction](#introduction)
+- [Technologies](#technologies)
+- [Usage](#usage)
+- [Contact](#contact)
 
-Things you may want to cover:
+### Introduction
+Assignment overview:
+> In this assignment, you will learn about the programming skills required for CVWO’ssummer project and go through a website development cycle. The focus of this assignmentis to promote proper code structure, coding techniques and familiarity withvarious development tools. You are expected to build up a good web developmentfoundation through this assignment, and prepare yourself for one development cycleduring your stint over the summer.
 
-* Ruby version
+This assignment was basically for me to learn the ropes of web development and hopefully get an opportunity for an intership with a VWO.
+I have hosted the web application on Heroku [here](https://whispering-everglades-24844.herokuapp.com).
 
-* System dependencies
+### Technologies
+- Ruby 2.6.5
+- Rails 6
+- Bootstrap 4
+- Hosted on Heroku
 
-* Configuration
+### Usage
+The task manager is a very simple web application. It provides basic creating, reading, updating and deleting functionality. In addition, I have added an email reminder functionality which will remind you of the task at a certain time.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# myapp
+### Contact
+Created by Joshua Tan - feel free to contact me!
