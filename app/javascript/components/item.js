@@ -16,6 +16,7 @@ function Item(props) {
                 variant={
                   props.item.completed ? "outline-secondary" : "outline-primary"
                 }
+                onClick={() => props.handleUpdate(props.item.id)}
               >
                 {props.item.completed ? "Mark Incomplete" : "Mark Complete"}
               </Button>

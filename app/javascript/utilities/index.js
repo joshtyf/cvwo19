@@ -23,3 +23,11 @@ export function deleteTask(id) {
     headers: { "X-CSRF-Token": token },
   });
 }
+
+export function updateTask(id) {
+  return axios.put(
+    `http://localhost:3000/tasks/${id}`,
+    {},
+    { headers: { "X-CSRF-Token": token } }
+  );
+}

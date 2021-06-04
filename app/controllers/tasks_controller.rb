@@ -9,6 +9,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/1 or /tasks/1.json
   def show
+    @task = Task.find(params[:id])
+    render json: @task
   end
 
   # GET /tasks/new
@@ -33,14 +35,12 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: "Task was successfully updated." }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
+    @task =  Task.find(params[:id])
+    if @task
+      @task.toggle!(:completed)
+      render json: { message: 'Task successfully updated' }, status: 200
+    else
+      render json: { error: 'Unable to update Task' }, status: 400
     end
   end
 
