@@ -12,7 +12,13 @@ function Item(props) {
           </Col>
           <Col className="d-flex justify-content-end">
             <ButtonGroup>
-              <Button variant="outline-primary">Mark Complete</Button>
+              <Button
+                variant={
+                  props.item.completed ? "outline-secondary" : "outline-primary"
+                }
+              >
+                {props.item.completed ? "Mark Incomplete" : "Mark Complete"}
+              </Button>
               <Button
                 variant="outline-danger"
                 onClick={() => props.handleDelete(props.item.id)}
