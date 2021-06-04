@@ -3,7 +3,7 @@ import { Card, Col, Button, Row, ButtonGroup } from "react-bootstrap";
 
 function Item(props) {
   return (
-    <Card>
+    <Card className="my-2">
       <Card.Body>
         <Row>
           <Col>

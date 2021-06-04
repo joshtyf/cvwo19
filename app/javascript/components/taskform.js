@@ -17,22 +17,22 @@ function TaskForm() {
   const handleDescriptionChange = (event) => setDescription(event.target.value);
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
+    <Form className="my-2" onSubmit={handleSubmit}>
+      <Form.Group className="my-2">
         <Form.Label>Title</Form.Label>
         <Form.Control
           onChange={handleTitleChange}
           placeholder="Enter task title"
         ></Form.Control>
       </Form.Group>
-      <Form.Group>
+      <Form.Group className="my-2">
         <Form.Label>Description</Form.Label>
         <Form.Control
           onChange={handleDescriptionChange}
           placeholder="Enter task description"
         ></Form.Control>
       </Form.Group>
-      <Button variant="primary" type="Submit">
+      <Button className="my-2" variant="primary" type="Submit">
         Create new task
       </Button>
     </Form>
