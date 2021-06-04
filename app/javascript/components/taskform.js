@@ -7,7 +7,10 @@ function TaskForm() {
   const [description, setDescription] = useState();
 
   const handleSubmit = (event) => {
-    createNewTask(title, description);
+    event.preventDefault();
+    createNewTask(title, description)
+      .then(() => window.location.reload())
+      .catch((err) => console.log("error" + err));
   };
 
   const handleTitleChange = (event) => setTitle(event.target.value);
