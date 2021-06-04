@@ -1,22 +1,36 @@
-import React from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row } from "react-bootstrap";
 import { getTodos } from "../utilities/index";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Item from "./item";
+import TaskForm from "./taskform";
 
 function App() {
-  const [Todos, setTodos] = React.useState("");
-  React.useEffect(() => {
+  const [Todos, setTodos] = useState([]);
+  useEffect(() => {
     getTodos()
-      .then((res) => console.log(res))
+      .then((res) => setTodos(res))
       .catch((err) => console.log(err));
   }, []);
 
   return (
-    <div className="container">
-      <div className="row">
+    <Container>
+      <Row>
         <h1 className="text-center">Todo List</h1>
-      </div>
-    </div>
+      </Row>
+      <Row>
+        <TaskForm />
+      </Row>
+      <Row>
+        {Todos.map((todo) => (
+          <Item
+            key={todo.id}
+            title={todo.title}
+            description={todo.description}
+          />
+        ))}
+      </Row>
+    </Container>
   );
 }
 
