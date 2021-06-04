@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Navbar } from "react-bootstrap";
 import { getTodos, deleteTask, updateTask } from "../utilities/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Item from "./item";
@@ -26,9 +26,9 @@ function App() {
 
   return (
     <Container>
-      <Row>
-        <h1 className="text-center">Todo List</h1>
-      </Row>
+      <Navbar>
+        <Navbar.Brand className="mx-auto h1">Todo List App</Navbar.Brand>
+      </Navbar>
       <Row>
         <TaskForm />
       </Row>
