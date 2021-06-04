@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Col, Button, Row, ButtonGroup } from "react-bootstrap";
 
 function Item(props) {
+  const [highlight, sethighlight] = useState(false);
+
+  const handleMouseEnter = () => sethighlight(true);
+
+  const handleMouseLeave = () => sethighlight(false);
+
   return (
-    <Card className="my-2">
+    <Card
+      className={`my-2 ${highlight ? "border-primary" : ""}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <Card.Body>
         <Row>
           <Col>
