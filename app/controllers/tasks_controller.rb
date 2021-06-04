@@ -3,7 +3,8 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    tasks = Task.all
+    render json: tasks
   end
 
   # GET /tasks/1 or /tasks/1.json
